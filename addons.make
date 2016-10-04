@@ -1,0 +1,5 @@
+ofxAnimatable
+ofxGLWarper
+ofxNetwork
+ofxOpenCv
+ofxXmlSettings
