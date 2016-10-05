@@ -3,6 +3,10 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofHideCursor();
+    ofSetVerticalSync(true);
+    ofSetFrameRate(60);
+    ofEnableSmoothing();
     ofTrueTypeFont::setGlobalDpi(72);
     verdana60.load("verdana.ttf", 60, true, true);
     verdana60.setLineHeight(68.0f);
@@ -14,10 +18,6 @@ void ofApp::setup(){
     Globals::UDP.Bind(Globals::port);
     Globals::UDP.SetNonBlocking(true);
     pantalla.setup();
-    ofHideCursor();
-    ofSetVerticalSync(true);
-    ofSetFrameRate(60);
-
 }
 
 //--------------------------------------------------------------
@@ -54,11 +54,12 @@ void ofApp::keyPressed(int key){
     Globals::lastSleep = ofGetElapsedTimeMillis();
     if (key == OF_KEY_DOWN && Globals::seleccion < Globals::numFichas) {
         Globals::seleccion = Globals::seleccion+1;
+        changeImages(); 
     }
     if (key == OF_KEY_UP && Globals::seleccion>0) {
         Globals::seleccion = Globals::seleccion-1;
+        changeImages();
     }
-    changeImages();
     if (key=='r') {
         resetEsquinas();
     }

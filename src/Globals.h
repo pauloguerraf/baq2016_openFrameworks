@@ -25,7 +25,6 @@ class Globals{
     static int numFichas;
     
     static float rad;
-    static bool isChanging;
     static bool showStroke;
     static vector <string> strings;
     static string CATEGORIA;

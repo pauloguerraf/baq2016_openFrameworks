@@ -21,6 +21,15 @@ void lutPlanos::setup() {
     for (int i = 0; i<numfots; i++) {
         imagenes[i].load("categoria_"+Globals::CATEGORIA+"/"+Globals::CATEGORIA+"_ficha_"+ofToString(Globals::seleccion)+"/planos/plano_"+ofToString(i)+".jpg");
     }
+    initAnim();
+}
+
+void lutPlanos::initAnim(){
+    alpha.reset(0);
+    alpha.setCurve(EASE_IN);
+    alpha.setRepeatType(PLAY_ONCE);
+    alpha.setDuration(1.0);
+    alpha.animateTo(255);
 }
 
 void lutPlanos::setNewImages() {
@@ -37,27 +46,44 @@ void lutPlanos::setNewImages() {
     }
     currentfot = 0;
     lastChanged = ofGetElapsedTimeMillis();
+    initAnim();
 }
 
 void lutPlanos::update() {
-    if ((ofGetElapsedTimeMillis()-lastChanged) > tiempoDeCambio && !Globals::isChanging) {
+    float dt = 1.0f / 60.0f;
+    alpha.update(dt);
+    if ((ofGetElapsedTimeMillis()-lastChanged) > tiempoDeCambio && !isChanging) {
         lastChanged = ofGetElapsedTimeMillis();
-        Globals::isChanging = true;
-        change();
+        isChanging = true;
+        alpha.reset(255);
+        alpha.setCurve(EASE_IN);
+        alpha.setRepeatType(PLAY_ONCE);
+        alpha.setDuration(1.0);
+        alpha.animateTo(0);
+    }
+    if(isChanging == true){
+        if(alpha.getPercentDone() == 1.0){
+            change();
+        }
     }
 }
 
 void lutPlanos::change() {
     if (currentfot < numfots-1)currentfot=currentfot+1;
     else currentfot = 0;
-    Globals::isChanging = false;
+    alpha.reset(0);
+    alpha.setCurve(EASE_IN);
+    alpha.setRepeatType(PLAY_ONCE);
+    alpha.setDuration(1.0);
+    alpha.animateTo(255);
+    isChanging = false;
 }
 
 
 void lutPlanos::dibujar() {
     img = imagenes[currentfot];
     ofEnableAlphaBlending();
-    ofSetColor(255, 255, 255, opacity);
+    ofSetColor(255, 255, 255, alpha.val());
     img.draw(172, 17);
     ofDisableAlphaBlending();
 }

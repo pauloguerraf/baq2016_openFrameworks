@@ -21,7 +21,6 @@ int Globals::currentCorner = 0;
 
 float Globals::rad = 10.0;
 
-bool Globals::isChanging = false;
 bool Globals::showStroke = false;
 bool Globals::isSleeping = false;
 bool Globals::mousePressed  = false;

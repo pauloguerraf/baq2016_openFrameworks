@@ -10,6 +10,8 @@
 #define lutGaleria_h
 
 #include "ofMain.h"
+#include "ofxAnimatableFloat.h"
+
 
 class lutGaleria{
 
@@ -22,11 +24,14 @@ class lutGaleria{
         unsigned int tiempoDeCambio = 7000;
         ofImage img;    
         void setup();
+        void initAnim();
         void setNewImages();
         void update();
         void change();
         void dibujar();
         float opacity = 255.0;
+        ofxAnimatableFloat alpha;
+        bool isChanging = false;
 };
 
 #endif /* lutGaleria_h */

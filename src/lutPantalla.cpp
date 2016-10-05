@@ -46,6 +46,7 @@ void lutPantalla::setNewImages() {
 void lutPantalla::updateAndDibujar() {
     galeriaPlanos.update();
     galeriaFotos.update();
+    textoFicha.update();
     warpers[0].begin();
     warpers[0].draw();
     galeriaPlanos.dibujar();
